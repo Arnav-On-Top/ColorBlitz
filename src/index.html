@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background:#111;
+                color:white;
+                text-align:center;
+                font-family:Arial;
+            }
+            #game {
+                width:350px;
+                margin:auto;
+            }
+            .box {
+                width:80px;
+                height:80px;
+                display:inline-block;
+                margin:6px;
+                border-radius:50%;
+                opacity:.5;
+            }
+            #red {background:red}
+            #blue {background:blue}
+            #green{background:green}
+            #yellow{background:yellow}
+            #orange{background:orange}
+            #purple{background:purple}
+            #cyan{background:cyan}
+            button {
+                padding:10px 20px;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>ColorBlitz</h2>
+        <p id="text">Press Start</p>
+        <p id="score">Round: 0</p>
+        <div id="game">
+            <div class="box" id="red"></div>
+            <div class="box" id="blue"></div>
+            <div class="box" id="green"></div>
+            <div class="box" id="yellow"></div>
+            <div class="box" id="orange"></div>
+            <div class="box" id="purple"></div>
+            <div class="box" id="cyan"></div>
+        </div>
+        <br>
+        <button id="start">Start</button>
+        <script>
+            var list=[];
+            var place=0;
+            var round=0;
+            var playing=false;
+            var text=document.getElementById("text");
+            var score=document.getElementById("score");
+            var red=document.getElementById("red");
+            var blue=document.getElementById("blue");
+            var green=document.getElementById("green");
+            var yellow=document.getElementById("yellow");
+            var orange=document.getElementById("orange");
+            var purple=document.getElementById("purple");
+            var cyan=document.getElementById("cyan");
+            var start=document.getElementById("start");
+            start.onclick=function(){
+                gameStart();
+            };
+            red.onclick=function(){
+                if(playing==false){
+                    check(0);
+                }
+            };
+            blue.onclick=function(){
+                if(playing==false){
+                    check(1);
+                }
+            };
+            green.onclick=function(){
+                if(playing==false){
+                    check(2);
+                }
+            };
+            yellow.onclick=function(){
+                if(playing==false){
+                    check(3);
+                }
+            };
+            orange.onclick=function(){
+                if(playing==false){
+                    check(4);
+                }
+            };
+            purple.onclick=function(){
+                if(playing==false){
+                    check(5);
+                }
+            };
+            cyan.onclick=function(){
+                if(playing==false){
+                    check(6);
+                }
+            };
+            function gameStart(){
+                list=[];
+                place=0;
+                round=0;
+                next();
+            }
+            function next() {
+                round=round+1;
+                score.innerHTML="Round: "+round;
+                var n=Math.floor(Math.random()*7);
+                list.push(n);
+                show();
+            }
+            function show() {
+                playing=true;
+                text.innerHTML="Watch";
+                var i=0;
+                function blink() {
+                    if(i<list.length) {
+                        var n=list[i];
+                        if(n==0){
+                            red.style.opacity="1";
+                            setTimeout(function(){
+                                red.style.opacity=".5"; 
+                            },300);
+                        }
+                        if(n==1){
+                            blue.style.opacity="1";
+                            setTimeout(function(){
+                                blue.style.opacity=".5";
+                            },300);
+                        }
+                        if(n==2){
+                            green.style.opacity="1";
+                            setTimeout(function(){
+                                green.style.opacity=".5";
+                            }, 300);
+                        }
+                        if(n==3){
+                            yellow.style.opacity="1";
+                            setTimeout(function(){
+                                yellow.style.opacity=".5";
+                            }, 300);
+                        }
+                        if(n==4){
+                            orange.style.opacity="1";
+                            setTimeout(function(){
+                                orange.style.opacity=".5";
+                            }, 300);
+                        }
+                        if(n==5){
+                            purple.style.opacity="1";
+                            setTimeout(function(){
+                                purple.style.opacity=".5";
+                            }, 300)
+                        }
+                        if(n==6){
+                            cyan.style.opacity="1";
+                            setTimeout(function(){
+                                cyan.style.opacity=".5";
+                            }, 300);
+                        }
+                        i=i+1;
+                        setTimeout(blink,500);
+                    }
+                    else{
+                        playing=false;
+                        place=0;
+                        text.innerHTML="Your Turn";
+                    }
+                }
+                blink();
+            }
+            function check(n){
+                if(n==list[place]){
+                    place=place+1;
+                    if(place==list.length){
+                        setTimeout(next, 500);
+                    }
+                }
+                else {
+                    text.innerHTML="Game Over";
+                    playing=true;
+                }
+            }
+        </script>
+    </body>
+</html>
